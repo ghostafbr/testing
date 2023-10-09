@@ -45,7 +45,6 @@ describe('Test for books', () => {
                     author: 'J. R. R. Tolkien',
                 },
             ]);
-            console.log(seedData);
             // Act
             return request(app).get('/api/v1/books').expect(200).then(({body}) => {
                 expect(body.length).toEqual(seedData.insertedCount);
