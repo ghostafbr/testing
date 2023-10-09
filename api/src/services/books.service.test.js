@@ -1,24 +1,14 @@
 const BooksService = require('./books.service');
+const {generateManyBooks} = require("../../fakes/book.fake");
 
-const fakeBooks = [
-    {
-        _id: 1,
-        title: 'Clean Code',
-    },
-    {
-        _id: 2,
-        title: 'The pragmatic programmer',
-    }
-];
+const mockGetAll = jest.fn();
 
-const MongoLibStub = {
-    getAll: () => [...fakeBooks],
+jest.mock('../lib/mongo.lib', () => jest.fn().mockImplementation(() => ({
+    getAll: mockGetAll,
     create: () => {},
-}
+})));
 
-jest.mock('../lib/mongo.lib', () => jest.fn().mockImplementation(() => MongoLibStub));
-
-describe('Tests for booksService', () => {
+describe('Test for BooksService', () => {
     let service;
     beforeEach(() => {
         service = new BooksService();
@@ -26,22 +16,24 @@ describe('Tests for booksService', () => {
     });
 
     describe('test for getBooks', () => {
-       test('should return an array of books', async () => {
-           // Arrange
-           // Act
-           const books = await service.getBooks({});
-           // Assert
-           expect(books.length).toEqual(2);
-       });
-
-        test('should return an array of books', async () => {
+        test('should return a list book', async () => {
             // Arrange
+            const fakeBooks = generateManyBooks(20);
+            mockGetAll.mockResolvedValue(fakeBooks);
             // Act
             const books = await service.getBooks({});
             // Assert
-            expect(books[0].title).toEqual('Clean Code');
+            expect(books.length).toEqual(fakeBooks.length);
+            expect(mockGetAll).toHaveBeenCalled();
+            expect(mockGetAll).toHaveBeenCalledTimes(1);
+            expect(mockGetAll).toHaveBeenCalledWith('books', {});
+        });
+
+        test('should return a list book', async () => {
+            const fakeBooks = generateManyBooks(3);
+            mockGetAll.mockResolvedValue(fakeBooks);
+            const books = await service.getBooks({});
+            expect(books[0].name).toEqual(fakeBooks[0].name);
         });
     });
-
-
 });
