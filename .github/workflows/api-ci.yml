@@ -5,7 +5,7 @@ on:
     paths:
       - "./api/**"
       - "./.github/workflows/api-ci.yml"
-  default:
+  defaults:
     run:
       working-directory: ./api
   jobs:
