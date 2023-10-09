@@ -5,11 +5,9 @@ on:
     paths:
       - "./api/**"
       - "./.github/workflows/api-ci.yml"
-
 defaults:
   run:
     working-directory: ./api
-
 jobs:
   unit-tests:
     name: Unit Tests
