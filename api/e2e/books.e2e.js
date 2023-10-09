@@ -25,9 +25,9 @@ describe('Test for books', () => {
 
     afterAll( async () => {
         server.close();
-        // await database.dropDatabase();
+        await database.dropDatabase();
         // await database.collection('books').drop();
-        await database.collection('books').deleteMany({});
+        // await database.collection('books').deleteMany({});
     });
 
     describe('Test for [GET] /api/v1/books', () => {
