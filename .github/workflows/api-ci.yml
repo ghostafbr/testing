@@ -40,6 +40,6 @@ jobs:
       - name: Install Dependencies
         shell: bash
         run: npm ci
-      - name: Run Unit Tests
+      - name: Run linter
         shell: bash
         run: npm run lint
