@@ -15,7 +15,7 @@ describe('Test for BooksService', () => {
         jest.clearAllMocks();
     });
 
-    describe('test for getBooks', () => {
+    describe('tests for getBooks', () => {
         test('should return a list book', async () => {
             // Arrange
             const fakeBooks = generateManyBooks(20);
